@@ -1,5 +1,9 @@
 name: CI
 on: [push]
+concurrency:
+  group: "CI"
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build, lint, and test on Node ${{ matrix.node }}

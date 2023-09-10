@@ -6,6 +6,9 @@ name: Release
 on:
   release:
     types: [created]
+concurrency:
+  group: "Release"
+  cancel-in-progress: true
 
 jobs:
   build:

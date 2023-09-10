@@ -1,5 +1,9 @@
 name: size
 on: [pull_request]
+concurrency:
+  group: "size"
+  cancel-in-progress: true
+
 jobs:
   size:
     runs-on: ubuntu-latest
