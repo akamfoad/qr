@@ -16,4 +16,5 @@ export const qrcode = function(
   return qr;
 };
 
+export { default as QRCode } from './lib/QRCode';
 export { ErrorCorrectLevel } from './lib/ErrorCorrectLevel';
