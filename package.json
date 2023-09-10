@@ -31,7 +31,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "qr",
+  "name": "@akamfoad/qr",
   "author": "akamfoad",
   "module": "dist/qr.esm.js",
   "size-limit": [
