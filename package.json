@@ -17,9 +17,9 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "docs": "typedoc --out typedocs src/index.ts"
   },
-  "peerDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -50,6 +50,7 @@
     "size-limit": "^9.0.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
+    "typedoc": "^0.25.1",
     "typescript": "^5.2.2"
   }
 }
