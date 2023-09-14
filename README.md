@@ -1,29 +1,24 @@
-# qr
+# @akamfoad/qr
 
-
-qrcode encoding in pure javascript with no additional dependencies
+Fully typed **QRCode encoding** implementation in JavaScript with no dependencies!
 
 ```js
-var qr = require('qr.js');
+import { qrcode as qr } from '@akamfoad/qr';
 
-var qrcode = qr('foo bar baz');
+const qrcode = qr('foo bar baz');
 
-var cells = qrcode.modules;
+const cells = qrcode.modules;
 
 // cell[R] -> row
 // if cell[R][C] is true, that cell is "on"
 ```
 
-[interactive example](http://tryme.jit.su/shtylman/qr.js/example)
+[interactive example](https://js-2xc6qu.stackblitz.io/)
 
 ## type docs
 
 <https://akamfoad.github.io/qr/>
 
-# credit
+## credit
 
-This library is repackaged work from the qrcode library here http://www.d-project.com/ which is also licensed under the MIT license. See LICENSE-qrcode for the license file to that project.
-
-# notes
-The word "QR Code" is registered trademark of DENSO WAVE INCORPORATED
-http://www.denso-wave.com/qrcode/faqpatent-e.html
+This library is repackaged work from the qrcode library here <http://www.d-project.com/> which is also licensed under the MIT license.
