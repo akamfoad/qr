@@ -1,5 +1,6 @@
 # qr
 
+
 qrcode encoding in pure javascript with no additional dependencies
 
 ```js
@@ -14,6 +15,10 @@ var cells = qrcode.modules;
 ```
 
 [interactive example](http://tryme.jit.su/shtylman/qr.js/example)
+
+## type docs
+
+<https://akamfoad.github.io/qr/>
 
 # credit
 
