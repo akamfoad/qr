@@ -1,6 +1,6 @@
 {
   "name": "@akamfoad/qr",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "license": "MIT",
   "description": "Fully typed QRCode encoding implementation in JavaScript with no dependencies!",
   "homepage": "https://akamfoad.github.io/qr/",
