@@ -1,6 +1,6 @@
 import { Options, defineConfig } from 'tsup';
 
-export default defineConfig(options => {
+export default defineConfig((options) => {
   const commonOptions: Partial<Options> = {
     entry: {
       qr: 'src/index.ts',

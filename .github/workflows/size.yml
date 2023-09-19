@@ -1,7 +1,7 @@
 name: size
 on: [pull_request]
 concurrency:
-  group: "size"
+  group: 'size'
   cancel-in-progress: true
 
 jobs:
