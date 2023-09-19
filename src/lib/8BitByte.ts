@@ -14,7 +14,7 @@ export default class QR8bitByte {
 
   //   FIXME?
   write(buffer: QRBitBuffer) {
-    for (var i = 0; i < this.data.length; i++) {
+    for (let i = 0; i < this.data.length; i++) {
       // not JIS ...
       buffer.put(this.data.charCodeAt(i), 8);
     }

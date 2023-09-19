@@ -22,7 +22,7 @@ export default class QRCode {
 
   // TODO  data may be anything, but we start with string
   addData(data: string) {
-    var newData = new BitByte(data);
+    const newData = new BitByte(data);
     this.dataList.push(newData);
     this.dataCache = null;
   }
@@ -51,18 +51,21 @@ export default class QRCode {
   make() {
     // Calculate automatically typeNumber if provided is < 1
     if (this.typeNumber < 1) {
-      var typeNumber = 1;
+      let typeNumber = 1;
       for (typeNumber = 1; typeNumber < 40; typeNumber++) {
-        var rsBlocks = RSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+        const rsBlocks = RSBlock.getRSBlocks(
+          typeNumber,
+          this.errorCorrectLevel,
+        );
 
-        var buffer = new BitBuffer();
-        var totalDataCount = 0;
-        for (var i = 0; i < rsBlocks.length; i++) {
+        const buffer = new BitBuffer();
+        let totalDataCount = 0;
+        for (let i = 0; i < rsBlocks.length; i++) {
           totalDataCount += rsBlocks[i].dataCount;
         }
 
-        for (var i = 0; i < this.dataList.length; i++) {
-          var data = this.dataList[i];
+        for (let i = 0; i < this.dataList.length; i++) {
+          const data = this.dataList[i];
           buffer.put(data.mode, 4);
           buffer.put(
             data.getLength(),
@@ -81,10 +84,10 @@ export default class QRCode {
     this.moduleCount = this.typeNumber * 4 + 17;
     this.modules = new Array(this.moduleCount);
 
-    for (var row = 0; row < this.moduleCount; row++) {
+    for (let row = 0; row < this.moduleCount; row++) {
       this.modules[row] = new Array(this.moduleCount);
 
-      for (var col = 0; col < this.moduleCount; col++) {
+      for (let col = 0; col < this.moduleCount; col++) {
         this.modules[row][col] = null; //(col + row) % 3;
       }
     }
@@ -112,10 +115,10 @@ export default class QRCode {
   }
 
   setupPositionProbePattern(row: number, col: number) {
-    for (var r = -1; r <= 7; r++) {
+    for (let r = -1; r <= 7; r++) {
       if (row + r <= -1 || this.moduleCount <= row + r) continue;
 
-      for (var c = -1; c <= 7; c++) {
+      for (let c = -1; c <= 7; c++) {
         if (col + c <= -1 || this.moduleCount <= col + c) continue;
 
         if (
@@ -138,13 +141,13 @@ export default class QRCode {
   }
 
   getBestMaskPattern() {
-    var minLostPoint = 0;
-    var pattern = 0;
+    let minLostPoint = 0;
+    let pattern = 0;
 
-    for (var i = 0; i < 8; i++) {
+    for (let i = 0; i < 8; i++) {
       this.makeImpl(true, i);
 
-      var lostPoint = util.getLostPoint(this);
+      const lostPoint = util.getLostPoint(this);
 
       if (i == 0 || minLostPoint > lostPoint) {
         minLostPoint = lostPoint;
@@ -156,22 +159,23 @@ export default class QRCode {
   }
 
   // FIXME where is this used? outside maybe? Try to find out
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   createMovieClip(target_mc, instance_name, depth) {
     if (this.modules === null) {
       throw new Error('this.modules is null');
     }
-    var qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
-    var cs = 1;
+    const qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
+    const cs = 1;
 
     this.make();
 
-    for (var row = 0; row < this.modules.length; row++) {
-      var y = row * cs;
+    for (let row = 0; row < this.modules.length; row++) {
+      const y = row * cs;
 
-      for (var col = 0; col < this.modules[row].length; col++) {
-        var x = col * cs;
-        var dark = this.modules[row][col];
+      for (let col = 0; col < this.modules[row].length; col++) {
+        const x = col * cs;
+        const dark = this.modules[row][col];
 
         if (dark) {
           qr_mc.beginFill(0, 100);
@@ -192,14 +196,14 @@ export default class QRCode {
       throw new Error('this.modules is null');
     }
 
-    for (var r = 8; r < this.moduleCount - 8; r++) {
+    for (let r = 8; r < this.moduleCount - 8; r++) {
       if (this.modules[r][6] != null) {
         continue;
       }
       this.modules[r][6] = r % 2 == 0;
     }
 
-    for (var c = 8; c < this.moduleCount - 8; c++) {
+    for (let c = 8; c < this.moduleCount - 8; c++) {
       if (this.modules[6][c] != null) {
         continue;
       }
@@ -212,19 +216,19 @@ export default class QRCode {
       throw new Error('this.modules is null');
     }
 
-    var pos = util.getPatternPosition(this.typeNumber);
+    const pos = util.getPatternPosition(this.typeNumber);
 
-    for (var i = 0; i < pos.length; i++) {
-      for (var j = 0; j < pos.length; j++) {
-        var row = pos[i];
-        var col = pos[j];
+    for (let i = 0; i < pos.length; i++) {
+      for (let j = 0; j < pos.length; j++) {
+        const row = pos[i];
+        const col = pos[j];
 
         if (this.modules[row][col] != null) {
           continue;
         }
 
-        for (var r = -2; r <= 2; r++) {
-          for (var c = -2; c <= 2; c++) {
+        for (let r = -2; r <= 2; r++) {
+          for (let c = -2; c <= 2; c++) {
             if (r == -2 || r == 2 || c == -2 || c == 2 || (r == 0 && c == 0)) {
               this.modules[row + r][col + c] = true;
             } else {
@@ -241,15 +245,15 @@ export default class QRCode {
       throw new Error('this.modules is null');
     }
 
-    var bits = util.getBCHTypeNumber(this.typeNumber);
+    const bits = util.getBCHTypeNumber(this.typeNumber);
 
-    for (var i = 0; i < 18; i++) {
-      var mod = !test && ((bits >> i) & 1) == 1;
+    for (let i = 0; i < 18; i++) {
+      const mod = !test && ((bits >> i) & 1) == 1;
       this.modules[Math.floor(i / 3)][(i % 3) + this.moduleCount - 8 - 3] = mod;
     }
 
-    for (var i = 0; i < 18; i++) {
-      var mod = !test && ((bits >> i) & 1) == 1;
+    for (let i = 0; i < 18; i++) {
+      const mod = !test && ((bits >> i) & 1) == 1;
       this.modules[(i % 3) + this.moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
     }
   }
@@ -259,12 +263,12 @@ export default class QRCode {
       throw new Error('this.modules is null');
     }
 
-    var data = (this.errorCorrectLevel << 3) | maskPattern;
-    var bits = util.getBCHTypeInfo(data);
+    const data = (this.errorCorrectLevel << 3) | maskPattern;
+    const bits = util.getBCHTypeInfo(data);
 
     // vertical
-    for (var i = 0; i < 15; i++) {
-      var mod = !test && ((bits >> i) & 1) == 1;
+    for (let i = 0; i < 15; i++) {
+      const mod = !test && ((bits >> i) & 1) == 1;
 
       if (i < 6) {
         this.modules[i][8] = mod;
@@ -276,8 +280,8 @@ export default class QRCode {
     }
 
     // horizontal
-    for (var i = 0; i < 15; i++) {
-      var mod = !test && ((bits >> i) & 1) == 1;
+    for (let i = 0; i < 15; i++) {
+      const mod = !test && ((bits >> i) & 1) == 1;
 
       if (i < 8) {
         this.modules[8][this.moduleCount - i - 1] = mod;
@@ -297,24 +301,25 @@ export default class QRCode {
       throw new Error('this.modules is null');
     }
 
-    var inc = -1;
-    var row = this.moduleCount - 1;
-    var bitIndex = 7;
-    var byteIndex = 0;
+    let inc = -1;
+    let row = this.moduleCount - 1;
+    let bitIndex = 7;
+    let byteIndex = 0;
 
-    for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+    for (let col = this.moduleCount - 1; col > 0; col -= 2) {
       if (col == 6) col--;
 
+      // eslint-disable-next-line no-constant-condition
       while (true) {
-        for (var c = 0; c < 2; c++) {
+        for (let c = 0; c < 2; c++) {
           if (this.modules[row][col - c] == null) {
-            var dark = false;
+            let dark = false;
 
             if (byteIndex < data.length) {
               dark = ((data[byteIndex] >>> bitIndex) & 1) == 1;
             }
 
-            var mask = util.getMask(maskPattern, row, col - c);
+            const mask = util.getMask(maskPattern, row, col - c);
 
             if (mask) {
               dark = !dark;
@@ -349,20 +354,20 @@ export default class QRCode {
     errorCorrectLevel: number,
     dataList: BitByte[],
   ) {
-    var rsBlocks = RSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+    const rsBlocks = RSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
 
-    var buffer = new BitBuffer();
+    const buffer = new BitBuffer();
 
-    for (var i = 0; i < dataList.length; i++) {
-      var data = dataList[i];
+    for (let i = 0; i < dataList.length; i++) {
+      const data = dataList[i];
       buffer.put(data.mode, 4);
       buffer.put(data.getLength(), util.getLengthInBits(data.mode, typeNumber));
       data.write(buffer);
     }
 
     // calc num max data.
-    var totalDataCount = 0;
-    for (var i = 0; i < rsBlocks.length; i++) {
+    let totalDataCount = 0;
+    for (let i = 0; i < rsBlocks.length; i++) {
       totalDataCount += rsBlocks[i].dataCount;
     }
 
@@ -387,6 +392,7 @@ export default class QRCode {
     }
 
     // padding
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       if (buffer.getLengthInBits() >= totalDataCount * 8) {
         break;
@@ -403,57 +409,57 @@ export default class QRCode {
   }
 
   static createBytes(buffer: BitBuffer, rsBlocks: RSBlock[]): number[] {
-    var offset = 0;
+    let offset = 0;
 
-    var maxDcCount = 0;
-    var maxEcCount = 0;
+    let maxDcCount = 0;
+    let maxEcCount = 0;
 
-    var dcdata = new Array<number[]>(rsBlocks.length);
-    var ecdata = new Array<number[]>(rsBlocks.length);
+    const dcdata = new Array<number[]>(rsBlocks.length);
+    const ecdata = new Array<number[]>(rsBlocks.length);
 
-    for (var r = 0; r < rsBlocks.length; r++) {
-      var dcCount = rsBlocks[r].dataCount;
-      var ecCount = rsBlocks[r].totalCount - dcCount;
+    for (let r = 0; r < rsBlocks.length; r++) {
+      const dcCount = rsBlocks[r].dataCount;
+      const ecCount = rsBlocks[r].totalCount - dcCount;
 
       maxDcCount = Math.max(maxDcCount, dcCount);
       maxEcCount = Math.max(maxEcCount, ecCount);
 
       dcdata[r] = new Array<number>(dcCount);
 
-      for (var i = 0; i < dcdata[r].length; i++) {
+      for (let i = 0; i < dcdata[r].length; i++) {
         dcdata[r][i] = 0xff & buffer.buffer[i + offset];
       }
       offset += dcCount;
 
-      var rsPoly = util.getErrorCorrectPolynomial(ecCount);
-      var rawPoly = new Polynomial(dcdata[r], rsPoly.getLength() - 1);
+      const rsPoly = util.getErrorCorrectPolynomial(ecCount);
+      const rawPoly = new Polynomial(dcdata[r], rsPoly.getLength() - 1);
 
-      var modPoly = rawPoly.mod(rsPoly);
+      const modPoly = rawPoly.mod(rsPoly);
       ecdata[r] = new Array(rsPoly.getLength() - 1);
-      for (var i = 0; i < ecdata[r].length; i++) {
-        var modIndex = i + modPoly.getLength() - ecdata[r].length;
+      for (let i = 0; i < ecdata[r].length; i++) {
+        const modIndex = i + modPoly.getLength() - ecdata[r].length;
         ecdata[r][i] = modIndex >= 0 ? modPoly.get(modIndex) : 0;
       }
     }
 
-    var totalCodeCount = 0;
-    for (var i = 0; i < rsBlocks.length; i++) {
+    let totalCodeCount = 0;
+    for (let i = 0; i < rsBlocks.length; i++) {
       totalCodeCount += rsBlocks[i].totalCount;
     }
 
-    var data = new Array<number>(totalCodeCount);
-    var index = 0;
+    const data = new Array<number>(totalCodeCount);
+    let index = 0;
 
-    for (var i = 0; i < maxDcCount; i++) {
-      for (var r = 0; r < rsBlocks.length; r++) {
+    for (let i = 0; i < maxDcCount; i++) {
+      for (let r = 0; r < rsBlocks.length; r++) {
         if (i < dcdata[r].length) {
           data[index++] = dcdata[r][i];
         }
       }
     }
 
-    for (var i = 0; i < maxEcCount; i++) {
-      for (var r = 0; r < rsBlocks.length; r++) {
+    for (let i = 0; i < maxEcCount; i++) {
+      for (let r = 0; r < rsBlocks.length; r++) {
         if (i < ecdata[r].length) {
           data[index++] = ecdata[r][i];
         }

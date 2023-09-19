@@ -256,27 +256,27 @@ export default class QRRSBlock {
   ];
 
   static getRSBlocks(typeNumber: number, errorCorrectLevel: number) {
-    var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+    const rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
 
     if (rsBlock == undefined) {
       throw new Error(
         'bad rs block @ typeNumber:' +
           typeNumber +
           '/errorCorrectLevel:' +
-          errorCorrectLevel
+          errorCorrectLevel,
       );
     }
 
-    var length = rsBlock.length / 3;
+    const length = rsBlock.length / 3;
 
-    var list = new Array();
+    const list = [];
 
-    for (var i = 0; i < length; i++) {
-      var count = rsBlock[i * 3 + 0];
-      var totalCount = rsBlock[i * 3 + 1];
-      var dataCount = rsBlock[i * 3 + 2];
+    for (let i = 0; i < length; i++) {
+      const count = rsBlock[i * 3 + 0];
+      const totalCount = rsBlock[i * 3 + 1];
+      const dataCount = rsBlock[i * 3 + 2];
 
-      for (var j = 0; j < count; j++) {
+      for (let j = 0; j < count; j++) {
         list.push(new QRRSBlock(totalCount, dataCount));
       }
     }
