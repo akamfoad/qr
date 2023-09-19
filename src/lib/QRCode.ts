@@ -66,7 +66,7 @@ export default class QRCode {
           buffer.put(data.mode, 4);
           buffer.put(
             data.getLength(),
-            util.getLengthInBits(data.mode, typeNumber)
+            util.getLengthInBits(data.mode, typeNumber),
           );
           data.write(buffer);
         }
@@ -104,7 +104,7 @@ export default class QRCode {
       this.dataCache = QRCode.createData(
         this.typeNumber,
         this.errorCorrectLevel,
-        this.dataList
+        this.dataList,
       );
     }
 
@@ -165,7 +165,6 @@ export default class QRCode {
     var cs = 1;
 
     this.make();
-
 
     for (var row = 0; row < this.modules.length; row++) {
       var y = row * cs;
@@ -348,7 +347,7 @@ export default class QRCode {
   static createData(
     typeNumber: number,
     errorCorrectLevel: number,
-    dataList: BitByte[]
+    dataList: BitByte[],
   ) {
     var rsBlocks = RSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
 
@@ -373,7 +372,7 @@ export default class QRCode {
           buffer.getLengthInBits() +
           '>' +
           totalDataCount * 8 +
-          ')'
+          ')',
       );
     }
 
