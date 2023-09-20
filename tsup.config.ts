@@ -5,6 +5,7 @@ export default defineConfig((options) => {
     entry: {
       qr: 'src/index.ts',
     },
+    dts: true,
     clean: true,
     ...options,
   };
@@ -12,10 +13,8 @@ export default defineConfig((options) => {
   return [
     {
       ...commonOptions,
-      clean: true,
       platform: 'neutral',
       outDir: 'dist',
-      dts: true,
       format: 'esm',
       outExtension: () => ({ js: '.mjs' }),
     },
@@ -23,7 +22,6 @@ export default defineConfig((options) => {
       ...commonOptions,
       format: 'cjs',
       outDir: 'dist/cjs/',
-      dts: true,
       outExtension: () => ({ js: '.cjs' }),
     },
   ];
