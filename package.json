@@ -5,7 +5,7 @@
   "description": "Fully typed QRCode encoding implementation in JavaScript with no dependencies!",
   "homepage": "https://akamfoad.github.io/qr/",
   "bugs": "https://github.com/akamfoad/qr/issues",
-  "repository": "github:akamfoad/qr",
+  "repository": "https://github.com/akamfoad/qr",
   "keywords": [
     "qrcode",
     "qr-code",
@@ -43,22 +43,9 @@
     "test": "vitest",
     "lint": "eslint",
     "prepare": "tsup && husky install",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
     "docs": "typedoc --out typedocs src/index.ts"
   },
-  "size-limit": [
-    {
-      "path": "dist/qr.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/qr.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "@typescript-eslint/parser": "^6.7.2",
     "eslint": "^8.49.0",
@@ -66,7 +53,6 @@
     "husky": "^8.0.0",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
-    "size-limit": "^9.0.0",
     "tsup": "^7.2.0",
     "typedoc": "^0.25.1",
     "typescript": "^5.2.2",
