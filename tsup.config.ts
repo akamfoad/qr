@@ -23,6 +23,7 @@ export default defineConfig((options) => {
       ...commonOptions,
       format: 'cjs',
       outDir: 'dist/cjs/',
+      dts: true,
       outExtension: () => ({ js: '.cjs' }),
     },
   ];

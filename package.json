@@ -1,6 +1,6 @@
 {
   "name": "@akamfoad/qr",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "description": "Fully typed QRCode encoding implementation in JavaScript with no dependencies!",
   "homepage": "https://akamfoad.github.io/qr/",
@@ -17,15 +17,20 @@
     "dist",
     "src"
   ],
-  "main": "./dist/cjs/qr.cjs",
-  "module": "./dist/qr.mjs",
-  "typings": "dist/qr.d.mts",
+  "main": "dist/cjs/qr.cjs",
+  "types": "dist/qr.d.mts",
+  "module": "dist/qr.mjs",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/qr.d.mts",
-      "import": "./dist/qr.mjs",
-      "default": "./dist/cjs/qr.cjs"
+      "import": {
+        "types": "./dist/qr.d.mts",
+        "default": "./dist/qr.mjs"
+      },
+      "require": {
+        "types": "./dist/cjs/qr.d.ts",
+        "default": "./dist/cjs/qr.cjs"
+      }
     }
   },
   "sideEffects": false,
