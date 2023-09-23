@@ -158,39 +158,6 @@ export default class QRCode {
     return pattern;
   }
 
-  // FIXME where is this used? outside maybe? Try to find out
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  createMovieClip(target_mc, instance_name, depth) {
-    if (this.modules === null) {
-      throw new Error('this.modules is null');
-    }
-    const qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
-    const cs = 1;
-
-    this.make();
-
-    for (let row = 0; row < this.modules.length; row++) {
-      const y = row * cs;
-
-      for (let col = 0; col < this.modules[row].length; col++) {
-        const x = col * cs;
-        const dark = this.modules[row][col];
-
-        if (dark) {
-          qr_mc.beginFill(0, 100);
-          qr_mc.moveTo(x, y);
-          qr_mc.lineTo(x + cs, y);
-          qr_mc.lineTo(x + cs, y + cs);
-          qr_mc.lineTo(x, y + cs);
-          qr_mc.endFill();
-        }
-      }
-    }
-
-    return qr_mc;
-  }
-
   setupTimingPattern() {
     if (this.modules === null) {
       throw new Error('this.modules is null');
