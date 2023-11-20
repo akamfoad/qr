@@ -26,7 +26,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v1
         with:
-          node-version: '18.x'
+          node-version: '20.x'
       - name: install deps
         run: npm ci
       - name: Build Docs
